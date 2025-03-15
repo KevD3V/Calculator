@@ -15,6 +15,7 @@ body {
     border: 5px lightyellow solid;
     border-radius: 5px;
     box-sizing: border-box;
+    padding-left: 5px;
 }
 
 
@@ -45,6 +46,12 @@ body {
     gap: 5px;
 }
 
+.row5 {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
 .button {
     box-sizing: border-box;
     height: 50px;
@@ -57,4 +64,10 @@ body {
     font-size: 24px;
     background-color: darkgray;
 
+}
+
+#clear {
+    color: black;
+    background-color: red;
+    width: 100%;
 }
