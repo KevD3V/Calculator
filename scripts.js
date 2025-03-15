@@ -22,9 +22,7 @@ const decimalBTN = document.querySelector("#decimal");
 const clearBTN = document.querySelector("#clear");
 const equalsBTN = document.querySelector("#equals");
 
-
 const results = document.querySelector("#results");
-
 
 /**
  * Add Event Listeners
@@ -95,7 +93,6 @@ subtractBTN.addEventListener("click", () => {
 
 });
 
-
 multiplyBTN.addEventListener("click", () => {
     console.log("MULTIPLY!");
 
@@ -113,6 +110,17 @@ equalsBTN.addEventListener("click", () => {
 
 clearBTN.addEventListener("click", () => {
     console.log("CLEAR!");
+    updateResults("");
 
 });
 
+
+
+
+
+/**
+ * Update the results text with value of updateText;
+ */
+function updateResults(updateText) {
+    results.textContent = updateText;
+}
