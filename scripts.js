@@ -95,7 +95,6 @@ decimalBTN.addEventListener("click", () => {
     }
     else {
         updateResults(".");
-
     }
 
 
@@ -144,7 +143,7 @@ equalsBTN.addEventListener("click", () => {
     console.log("Second Value: " + secondValue);
     console.log("Final Results: " + operate(operation));
 
-
+    clearVariables();
 
 
 });
