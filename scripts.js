@@ -142,9 +142,15 @@ multiplyBTN.addEventListener("click", () => {
 
 divideBTN.addEventListener("click", () => {
     console.log("DIVIDE!");
-    updateResults("/");
-    operation = "/"
 
+    if (checkDivision(results.textContent)) {
+        // Do Nothing
+    }
+    else {
+        getFirstValue();
+        updateResults("/");
+        operation = "/"
+    }
 });
 
 equalsBTN.addEventListener("click", () => {
@@ -294,4 +300,12 @@ function checkSubtraction(subtractString) {
 function checkAddition(addString) {
     let addCheck = addString.includes("+");
     return addCheck;
+}
+
+/**
+ * Check for existing division in display
+ */
+function checkDivision(divString) {
+    let divCheck = divString.includes("/");
+    return divCheck;
 }
