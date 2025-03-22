@@ -89,24 +89,36 @@ zeroBTN.addEventListener("click", () => {
 
 decimalBTN.addEventListener("click", () => {
     console.log("POINT!");
-    updateResults(".");
+    if (checkDecimal(results.textContent)) {
+        // Do Nothing
+
+    }
+    else {
+        updateResults(".");
+
+    }
+
 
 });
 
 addBTN.addEventListener("click", () => {
     console.log("ADD!");
+    getFirstValue();
     updateResults("+");
+    operation = "+"
 
 });
 
 subtractBTN.addEventListener("click", () => {
     console.log("SUBTRACT!");
+    operation = "-";
     updateResults("-");
 
 });
 
 multiplyBTN.addEventListener("click", () => {
     console.log("MULTIPLY!");
+    operation = "x";
     updateResults("x");
 
 });
@@ -114,12 +126,26 @@ multiplyBTN.addEventListener("click", () => {
 divideBTN.addEventListener("click", () => {
     console.log("DIVIDE!");
     updateResults("/");
+    operation = "/"
 
 });
 
 equalsBTN.addEventListener("click", () => {
     console.log("EQUALS!");
-    updateResults("=");
+
+    getSecondValue();
+
+    resultText = operate(operation);
+
+    results.textContent = resultText;
+
+    console.log("First Value: " + firstValue);
+    console.log("Operation: " + operation);
+    console.log("Second Value: " + secondValue);
+    console.log("Final Results: " + operate(operation));
+
+
+
 
 });
 
@@ -128,9 +154,24 @@ clearBTN.addEventListener("click", () => {
     clearResults();
 });
 
+/**
+ * Groups
+ */
+
+let numbers = [oneBTN, twoBTN, threeBTN, fourBTN, fiveBTN, sixBTN, sevenBTN, eightBTN, nineBTN, zeroBTN];
+let operations = [addBTN, subtractBTN, multiplyBTN, divideBTN];
 
 
+/**
+ * Calculator variables
+ */
+// Variable to track which operation is happening. 
+let operation = "";
 
+// Variables to track values to perform operations on.
+let firstValue = 0;
+let secondValue = 0;
+let finalValue = 0;
 
 /**
  * Update the results text with value of updateText;
@@ -144,4 +185,73 @@ function updateResults(updateText) {
  */
 function clearResults() {
     results.textContent = "";
+}
+
+/**
+ * Capture first value.
+ * First value is captured when operation is selected.
+ */
+function getFirstValue() {
+    firstValue = Number(results.textContent);
+}
+
+/**
+ * Capture second value
+ */
+function getSecondValue() {
+
+    let tempIndex = results.textContent.indexOf(operation);
+    tempIndex++;
+    secondValue = Number(results.textContent.substring(tempIndex));
+}
+
+/**
+ * Check Value for correct input
+ */
+function checkValue() {
+
+}
+
+
+/**
+ * Capture operator
+ */
+function operate(operation) {
+    switch (operation) {
+        case "+":
+            return firstValue + secondValue;
+            break;
+        case "-":
+            return firstValue - secondValue;
+            break;
+        case "x":
+            return firstValue * secondValue;
+            break;
+        case "/":
+            return firstValue / secondValue;
+            break;
+    }
+}
+
+
+
+/**
+ * Clear variables
+ */
+function clearVariables() {
+    firstValue = 0;
+    secondValue = 0;
+    finalValue = 0;
+
+    operation = "";
+}
+
+/**
+ * Check for existing decimal points to avoid entering multiple decimal points.
+ */
+function checkDecimal(decString) {
+    let decCheck = decString.includes(".");
+
+    return decCheck;
+
 }
