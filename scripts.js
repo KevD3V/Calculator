@@ -117,9 +117,14 @@ subtractBTN.addEventListener("click", () => {
 
 multiplyBTN.addEventListener("click", () => {
     console.log("MULTIPLY!");
-    operation = "x";
-    updateResults("x");
 
+    if (checkMultiplication(results.textContent)) {
+        // Do Nothing
+    }
+    else {
+        operation = "x";
+        updateResults("x");
+    }
 });
 
 divideBTN.addEventListener("click", () => {
@@ -252,5 +257,13 @@ function checkDecimal(decString) {
     let decCheck = decString.includes(".");
 
     return decCheck;
+}
+
+/**
+ * Check for existing operators in display
+ */
+function checkMultiplication(multiplyString) {
+    let multiplyCheck = multiplyString.includes("x");
+    return multiplyCheck;
 
 }
