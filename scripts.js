@@ -110,9 +110,14 @@ addBTN.addEventListener("click", () => {
 
 subtractBTN.addEventListener("click", () => {
     console.log("SUBTRACT!");
-    operation = "-";
-    updateResults("-");
 
+    if (checkSubtraction(results.textContent)) {
+        // Do Nothing
+    }
+    else {
+        operation = "-";
+        updateResults("-");
+    }
 });
 
 multiplyBTN.addEventListener("click", () => {
@@ -260,10 +265,17 @@ function checkDecimal(decString) {
 }
 
 /**
- * Check for existing operators in display
+ * Check for existing multiplication in display
  */
 function checkMultiplication(multiplyString) {
     let multiplyCheck = multiplyString.includes("x");
     return multiplyCheck;
+}
 
+/**
+ * Check for existing subtraction in display
+ */
+function checkSubtraction(subtractString) {
+    let subtractCheck = subtractString.includes("-");
+    return subtractCheck;
 }
