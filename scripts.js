@@ -102,9 +102,15 @@ decimalBTN.addEventListener("click", () => {
 
 addBTN.addEventListener("click", () => {
     console.log("ADD!");
-    getFirstValue();
-    updateResults("+");
-    operation = "+"
+    if (checkAddition(results.textContent)) {
+        // Do Nothing
+    }
+    else {
+        getFirstValue();
+        updateResults("+");
+        operation = "+"
+    }
+
 
 });
 
@@ -115,6 +121,7 @@ subtractBTN.addEventListener("click", () => {
         // Do Nothing
     }
     else {
+        getFirstValue();
         operation = "-";
         updateResults("-");
     }
@@ -127,6 +134,7 @@ multiplyBTN.addEventListener("click", () => {
         // Do Nothing
     }
     else {
+        getFirstValue();
         operation = "x";
         updateResults("x");
     }
@@ -278,4 +286,12 @@ function checkMultiplication(multiplyString) {
 function checkSubtraction(subtractString) {
     let subtractCheck = subtractString.includes("-");
     return subtractCheck;
+}
+
+/**
+ * Check for existing addition in display
+ */
+function checkAddition(addString) {
+    let addCheck = addString.includes("+");
+    return addCheck;
 }
