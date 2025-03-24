@@ -96,47 +96,65 @@ decimalBTN.addEventListener("click", () => {
     else {
         updateResults(".");
     }
-
-
 });
 
 addBTN.addEventListener("click", () => {
     console.log("ADD!");
+    // If an addition sign exists...
     if (checkAddition(results.textContent)) {
         // Do Nothing
     }
     else {
         getFirstValue();
-        updateResults("+");
         operation = "+"
+
+        if (checkSubtraction(results.textContent) || checkDivision(results.textContent) || checkMultiplication(results.textContent)) {
+            changeOperator("+");
+        }
+        else {
+            updateResults("+");
+        }
     }
-
-
 });
 
 subtractBTN.addEventListener("click", () => {
     console.log("SUBTRACT!");
 
+    // If a subtraction sign exists...
     if (checkSubtraction(results.textContent)) {
         // Do Nothing
     }
     else {
-        getFirstValue();
         operation = "-";
-        updateResults("-");
+        getFirstValue();
+
+        // If any other sign exists...
+        if (checkAddition(results.textContent) || checkDivision(results.textContent) || checkMultiplication(results.textContent)) {
+            changeOperator("-");
+        }
+        else {
+            updateResults("-");
+        }
     }
 });
 
 multiplyBTN.addEventListener("click", () => {
     console.log("MULTIPLY!");
 
+    // If a multiplication sign exists...
     if (checkMultiplication(results.textContent)) {
         // Do Nothing
     }
     else {
         getFirstValue();
-        operation = "x";
-        updateResults("x");
+        operation = "x"
+
+        if (checkSubtraction(results.textContent) || checkDivision(results.textContent) || checkAddition(results.textContent)) {
+            changeOperator("x");
+        }
+        else {
+            updateResults("x");
+        }
     }
 });
 
@@ -148,8 +166,14 @@ divideBTN.addEventListener("click", () => {
     }
     else {
         getFirstValue();
-        updateResults("/");
         operation = "/"
+
+        if (checkSubtraction(results.textContent) || checkAddition(results.textContent) || checkMultiplication(results.textContent)) {
+            changeOperator("/");
+        }
+        else {
+            updateResults("/");
+        }
     }
 });
 
@@ -204,6 +228,16 @@ function updateResults(updateText) {
 }
 
 /**
+ * Update the results text to change only the operator
+ */
+function changeOperator(newOp) {
+    let text = results.textContent;
+    text = text.substring(0, text.length - 1);
+    text += newOp;
+    results.textContent = text;
+}
+
+/**
  * Clear the results text area
  */
 function clearResults() {
@@ -215,7 +249,14 @@ function clearResults() {
  * First value is captured when operation is selected.
  */
 function getFirstValue() {
-    firstValue = Number(results.textContent);
+    let text = results.textContent;
+    text = text.replace("x", "");
+    text = text.replace("-", "");
+    text = text.replace("+", "");
+    text = text.replace("/", "");
+
+
+    firstValue = Number(text);
 }
 
 /**
