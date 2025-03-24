@@ -89,6 +89,7 @@ zeroBTN.addEventListener("click", () => {
 
 decimalBTN.addEventListener("click", () => {
     console.log("POINT!");
+    return;
     if (checkDecimal(results.textContent)) {
         // Do Nothing
 
@@ -100,12 +101,24 @@ decimalBTN.addEventListener("click", () => {
 
 addBTN.addEventListener("click", () => {
     console.log("ADD!");
+    if (newOperation) {
+        return;
+    }
+
+
     // If an addition sign exists...
     if (checkAddition(results.textContent)) {
         // Do Nothing
     }
     else {
         getFirstValue();
+        if (firstValue === undefined) {
+            console.log("NULL FIRST VALUE!");
+            return;
+        }
+        console.log("Still trying to add!!");
+
+
         operation = "+"
 
         if (checkSubtraction(results.textContent) || checkDivision(results.textContent) || checkMultiplication(results.textContent)) {
@@ -119,15 +132,21 @@ addBTN.addEventListener("click", () => {
 
 subtractBTN.addEventListener("click", () => {
     console.log("SUBTRACT!");
+    if (newOperation) {
+        return;
+    }
 
     // If a subtraction sign exists...
     if (checkSubtraction(results.textContent)) {
         // Do Nothing
     }
     else {
-        operation = "-";
-        getFirstValue();
 
+        getFirstValue();
+        if (firstValue === null) {
+            return;
+        }
+        operation = "-";
         // If any other sign exists...
         if (checkAddition(results.textContent) || checkDivision(results.textContent) || checkMultiplication(results.textContent)) {
             changeOperator("-");
@@ -140,13 +159,18 @@ subtractBTN.addEventListener("click", () => {
 
 multiplyBTN.addEventListener("click", () => {
     console.log("MULTIPLY!");
-
+    if (newOperation) {
+        return;
+    }
     // If a multiplication sign exists...
     if (checkMultiplication(results.textContent)) {
         // Do Nothing
     }
     else {
         getFirstValue();
+        if (firstValue === null) {
+            return;
+        }
         operation = "x"
 
         if (checkSubtraction(results.textContent) || checkDivision(results.textContent) || checkAddition(results.textContent)) {
@@ -160,12 +184,18 @@ multiplyBTN.addEventListener("click", () => {
 
 divideBTN.addEventListener("click", () => {
     console.log("DIVIDE!");
+    if (newOperation) {
+        return;
+    }
 
     if (checkDivision(results.textContent)) {
         // Do Nothing
     }
     else {
         getFirstValue();
+        if (firstValue === null) {
+            return;
+        }
         operation = "/"
 
         if (checkSubtraction(results.textContent) || checkAddition(results.textContent) || checkMultiplication(results.textContent)) {
@@ -203,6 +233,7 @@ equalsBTN.addEventListener("click", () => {
     console.log("Final Results: " + operate(operation));
 
     clearVariables();
+    newOperation = true;
 
 
 });
@@ -225,6 +256,7 @@ let operations = [addBTN, subtractBTN, multiplyBTN, divideBTN];
  */
 // Variable to track which operation is happening. 
 let operation = "";
+let newOperation = false;
 
 // Variables to track values to perform operations on.
 let firstValue = null;
@@ -235,6 +267,11 @@ let finalValue = null;
  * Update the results text with value of updateText;
  */
 function updateResults(updateText) {
+    if (newOperation) {
+        results.textContent = "";
+    }
+
+    newOperation = false;
     results.textContent += updateText;
 }
 
@@ -242,6 +279,10 @@ function updateResults(updateText) {
  * Update the results text to change only the operator
  */
 function changeOperator(newOp) {
+    if (firstValue === null) {
+        return;
+    }
+
     let text = results.textContent;
     text = text.substring(0, text.length - 1);
     text += newOp;
@@ -266,6 +307,10 @@ function getFirstValue() {
     text = text.replace("+", "");
     text = text.replace("/", "");
 
+    if (text === null || text === "") {
+        return;
+    }
+
 
     firstValue = Number(text);
 }
@@ -281,13 +326,6 @@ function getSecondValue() {
     }
     newSecondValue = Number(results.textContent.substring(tempIndex));
     secondValue = newSecondValue;
-}
-
-/**
- * Check Value for correct input
- */
-function checkValue() {
-
 }
 
 
