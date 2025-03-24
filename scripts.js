@@ -182,6 +182,17 @@ equalsBTN.addEventListener("click", () => {
 
     getSecondValue();
 
+    if (firstValue === 0 && secondValue === 0 && operation === "/") {
+        results.textContent = "N00B";
+        return;
+    }
+
+    if (secondValue === null || firstValue === null) {
+        clearVariables();
+        return;
+    }
+
+
     resultText = operate(operation);
 
     results.textContent = resultText;
@@ -216,9 +227,9 @@ let operations = [addBTN, subtractBTN, multiplyBTN, divideBTN];
 let operation = "";
 
 // Variables to track values to perform operations on.
-let firstValue = 0;
-let secondValue = 0;
-let finalValue = 0;
+let firstValue = null;
+let secondValue = null;
+let finalValue = null;
 
 /**
  * Update the results text with value of updateText;
@@ -263,10 +274,13 @@ function getFirstValue() {
  * Capture second value
  */
 function getSecondValue() {
-
     let tempIndex = results.textContent.indexOf(operation);
     tempIndex++;
-    secondValue = Number(results.textContent.substring(tempIndex));
+    if (results.textContent.substring(tempIndex) == "") {
+        return;
+    }
+    newSecondValue = Number(results.textContent.substring(tempIndex));
+    secondValue = newSecondValue;
 }
 
 /**
@@ -303,9 +317,9 @@ function operate(operation) {
  * Clear variables
  */
 function clearVariables() {
-    firstValue = 0;
-    secondValue = 0;
-    finalValue = 0;
+    firstValue = null;
+    secondValue = null;
+    finalValue = null;
 
     operation = "";
 }
